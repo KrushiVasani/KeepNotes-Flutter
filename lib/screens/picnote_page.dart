@@ -55,11 +55,8 @@ class _PhotoPageState extends State<PhotoPage> {
 
   String _titleFrominitial;
   String _contentFromInitial;
-  // DateTime _lastEditedForUndo;
-
   var _editableNote;
 
-  // the timer variable responsible to call persistData function every 5 seconds and cancel the timer when the page pops.
   Timer _persistenceTimer;
 
   final GlobalKey<ScaffoldState> _globalKey = new GlobalKey<ScaffoldState>();
@@ -73,7 +70,7 @@ class _PhotoPageState extends State<PhotoPage> {
     decodeStringToImage(_image, _editableNote.content)
         .then((value) => _image = value);
     noteColor = _editableNote.noteColor;
-    // _lastEditedForUndo = widget.noteInEditing.dateLastEdited;
+  
 
     _titleFrominitial = widget.noteInEditing.title;
     _contentFromInitial = widget.noteInEditing.content;
@@ -83,10 +80,10 @@ class _PhotoPageState extends State<PhotoPage> {
       _isNewNote = true;
     }
     _persistenceTimer = new Timer.periodic(Duration(seconds: 5), (timer) {
-      // call insert query here
+
       print("5 seconds passed");
       print("editable note id: ${_editableNote.id}");
-      // _persistData();
+     
     });
 
     if (!_isNewNote) {
@@ -122,8 +119,7 @@ class _PhotoPageState extends State<PhotoPage> {
   }
 
   Future<String> encodeImageToString(File image) async {
-    // final bytes = await image.readAsBytes();
-    // String base64Image = base64.encode(bytes);
+  
     if (isSaved) {
       String path = 'storage/emulated/0';
       print('$path/Tizeno/' +
@@ -131,13 +127,11 @@ class _PhotoPageState extends State<PhotoPage> {
       return '$path/Tizeno/' +
           image.path.split('/')[image.path.split('/').length - 1].toString();
     }
-    // String base64Image = image.path;
-    // return base64Image;
+
   }
 
   Future<File> decodeStringToImage(File image, String base64Image) async {
-    // Uint8List base64Decode = base64.decode(base64Image);
-    // await image.writeAsBytes(base64Decode);
+
     image = File(base64Image);
     print(base64Image);
     return image;
@@ -146,7 +140,7 @@ class _PhotoPageState extends State<PhotoPage> {
   @override
   Widget build(BuildContext context) {
     if (_editableNote.id == -1 && _editableNote.title.isEmpty) {
-      // FocusScope.of(context).requestFocus(_titleFocus);
+    
     }
 
     return WillPopScope(
@@ -167,13 +161,6 @@ class _PhotoPageState extends State<PhotoPage> {
         floatingActionButton: Container(
           decoration: BoxDecoration(
               border: Border.all(width: 2, color: Colors.black),
-              // boxShadow: [
-              //   BoxShadow(
-              //       color: Colors.orange.withOpacity(0.8),
-              //       blurRadius: 20,
-              //       spreadRadius: 0,
-              //       offset: Offset(0, 4))
-              // ],
               borderRadius: BorderRadius.circular(100)),
           child: FloatingActionButton(
             heroTag: 'FAB',
@@ -208,7 +195,6 @@ class _PhotoPageState extends State<PhotoPage> {
             children: [
               Container(
                 padding: EdgeInsets.all(5),
-//          decoration: BoxDecoration(border: Border.all(color: CentralStation.borderColor,width: 1 ),borderRadius: BorderRadius.all(Radius.circular(10)) ),
                 child: TextField(
                   autofocus: false,
                   decoration: InputDecoration(
@@ -242,9 +228,6 @@ class _PhotoPageState extends State<PhotoPage> {
                       alignment: Alignment.topCenter,
                       color: noteColor,
                       child:
-                          // SingleChildScrollView(
-                          //   scrollDirection: Axis.horizontal,
-                          //   child:
                           Row(
                         children: images != null
                             ? images
@@ -254,7 +237,6 @@ class _PhotoPageState extends State<PhotoPage> {
                                 )
                               ],
                       ),
-                      // ),
                       height: MediaQuery.of(context).size.height * 0.55,
                       width: MediaQuery.of(context).size.width,
                     )),
@@ -275,13 +257,6 @@ class _PhotoPageState extends State<PhotoPage> {
 
   List<Widget> _archiveAction(BuildContext context) {
     List<Widget> actions = [];
-    // if (widget.noteInEditing.id != -1) {
-    //   actions.add(IconButton(
-    //     icon: Icon(Icons.undo),
-    //     color: Colors.black45,
-    //     onPressed: () => _undo(),
-    //   ));
-    // }
     actions += [
       IconButton(
         icon: (_editableNote.isArchived == 0)
@@ -290,11 +265,7 @@ class _PhotoPageState extends State<PhotoPage> {
         color: Colors.black45,
         onPressed: () => _archivePopup(context),
       ),
-      // IconButton(
-      //   icon: Icon(Icons.add),
-      //   color: Colors.black45,
-      //   onPressed: () => _saveAndStartNewNote(context),
-      // ),
+
       IconButton(
         icon: (_editableNote.isStarred == 0)
             ? Icon(Icons.star_border)
@@ -333,8 +304,7 @@ class _PhotoPageState extends State<PhotoPage> {
       var noteDB = NotesDBHandler();
       if (widget.noteInEditing.id == -1) {
         Future<int> autoIncrementedId =
-            noteDB.insertNote(widget.noteInEditing, true); // for new note
-        // set the id of the note from the database after inserting the new note so for next persisting
+            noteDB.insertNote(widget.noteInEditing, true); 
         autoIncrementedId.then((value) {
           widget.noteInEditing.id = value;
         });
@@ -344,8 +314,6 @@ class _PhotoPageState extends State<PhotoPage> {
       }
     }
   }
-
-// this function will ne used to save the updated editing value of the note to the local variables as user types
   void updateNoteObject() {
     encodeImageToString(_image).then((value) => _editableNote.content = value);
     _editableNote.title = _titleController.text;
@@ -360,8 +328,7 @@ class _PhotoPageState extends State<PhotoPage> {
     if (!(_editableNote.title == _titleFrominitial &&
             _editableNote.content == _contentFromInitial) ||
         (_isNewNote)) {
-      // No changes to the note
-      // Change last edit time only if the content of the note is mutated in compare to the note which the page was called with.
+ 
       _editableNote.dateLastEdited = DateTime.now();
       print("Updating dateLastEdited");
       setState(() {
@@ -409,9 +376,7 @@ class _PhotoPageState extends State<PhotoPage> {
               actions: <Widget>[
                 FlatButton(
                     onPressed: () {
-                      // print(widget.noteInEditing.content);
-                      // final dir = Directory(widget.noteInEditing.content);
-                      // dir.delete(recursive: false);
+                  
                       _persistenceTimer.cancel();
                       var noteDB = NotesDBHandler();
                       Navigator.of(context).pop();
@@ -519,8 +484,6 @@ class _PhotoPageState extends State<PhotoPage> {
     CentralStation.updateNeeded = true;
     _persistenceTimer.cancel(); // shutdown the timer
 
-    // Navigator.of(context).pop(); // pop back to staggered view
-    // TODO: OPTIONAL show the toast of archive completion
     _globalKey.currentState.showSnackBar(new SnackBar(
       content: Text("Archived"),
       duration: Duration(milliseconds: 500),
@@ -528,8 +491,7 @@ class _PhotoPageState extends State<PhotoPage> {
   }
 
   void _starThisNote(BuildContext context) {
-    // Navigator.of(context).pop();
-    // set archived flag to true and send the entire note object in the database to be updated
+
     setState(() {
       _editableNote.isStarred = 1;
       _editableNote.isArchived = 0;
@@ -546,7 +508,6 @@ class _PhotoPageState extends State<PhotoPage> {
 
   void _unArchiveThisNote(BuildContext context) {
     Navigator.of(context).pop();
-    // set archived flag to true and send the entire note object in the database to be updated
     _editableNote.isArchived = 0;
     var noteDB = NotesDBHandler();
     noteDB.archiveNote(_editableNote);
@@ -563,7 +524,6 @@ class _PhotoPageState extends State<PhotoPage> {
     });
     var noteDB = NotesDBHandler();
     noteDB.starNote(_editableNote);
-    // update will be required to remove the archived note from the staggered view
     CentralStation.updateNeeded = true;
     _globalKey.currentState.showSnackBar(new SnackBar(
         content: Text("Unstarred"), duration: Duration(milliseconds: 500)));
@@ -575,7 +535,6 @@ class _PhotoPageState extends State<PhotoPage> {
     });
     var noteDB = NotesDBHandler();
     noteDB.photoNote(_editableNote);
-    // update will be required to remove the archived note from the staggered view
     CentralStation.updateNeeded = true;
 
   }
@@ -598,8 +557,6 @@ class _PhotoPageState extends State<PhotoPage> {
   void addImageToList(File image) async {
     if (_editableNote.id == -1) {
       if (File == null) return;
-      // Img.Image img = Img.decodeImage(image.readAsBytesSync());
-      // Img.Image thumbnail = Img.copyResize(img, width: 400);
       await GallerySaver.saveImage(image.path, albumName: "Tizeno");
       setState(() {
         isSaved = true;

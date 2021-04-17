@@ -77,7 +77,7 @@ class _StaggeredGridPageState extends State<StaggeredGridPage> {
     if (widget.notesViewType == viewType.List) {
       return 1;
     }
-    // for width larger than 600, return 3 irrelevant of the orientation to accommodate more notes horizontally
+
     return MediaQuery.of(context).size.width > 600 ? 3 : 2;
   }
 

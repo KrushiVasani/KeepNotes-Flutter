@@ -51,13 +51,7 @@ class _MoreOptionsSheetState extends State<MoreOptionsSheet> {
                 Navigator.of(context).pop();
                 widget.callBackOptionTapped(moreOptions.delete);
               }),
-          // new ListTile(
-          //     leading: new Icon(Icons.archive),
-          //     title: new Text('Archive'),
-          //     onTap: () {
-          //       Navigator.of(context).pop();
-          //       widget.callBackOptionTapped(moreOptions.archive);
-          //     }),
+    
           new ListTile(
               leading: new Icon(Icons.content_copy),
               title: new Text('Duplicate'),
@@ -79,7 +73,6 @@ class _MoreOptionsSheetState extends State<MoreOptionsSheet> {
               width: MediaQuery.of(context).size.width,
               child: ColorSlider(
                 callBackColorTapped: _changeColor,
-                // call callBack from notePage here
                 noteColor: noteColor, // take color from local variable
               ),
             ),

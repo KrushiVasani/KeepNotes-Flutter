@@ -93,12 +93,6 @@ class _MyStaggeredTileState extends State<MyStaggeredTile> {
           ),
         ),
       );
-      // contentsOfTiles.add(
-      //   Divider(
-      //     color: widget.note.noteColor,
-      //     height: 6,
-      //   ),
-      // );
     }
     if (isPhoto == 0) {
       contentsOfTiles.add(Padding(
@@ -124,12 +118,7 @@ class _MyStaggeredTileState extends State<MyStaggeredTile> {
         ),
       );
     }
-    // contentsOfTiles.add(
-    //   Divider(
-    //     color: widget.note.noteColor,
-    //     height: 6,
-    //   ),
-    // );
+
     contentsOfTiles.add(Padding(
       padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
       child: Align(
@@ -162,8 +151,7 @@ class _MyStaggeredTileState extends State<MyStaggeredTile> {
   }
 
   Future<File> decodeStringToImage(File image, String base64Image) async {
-    // Uint8List base64Decode = base64.decode(base64Image);
-    // await image.writeAsBytes(base64Decode);
+  
     image = new File(base64Image);
     return image;
   }

@@ -34,8 +34,6 @@ class _MainPageState extends State<MainPage> {
 
   int _selectedIndex = 0;
 
-
-
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, width: 720, height: 1440, allowFontScaling: true);
@@ -45,24 +43,16 @@ class _MainPageState extends State<MainPage> {
         brightness: Brightness.light,
         actions: _appBarActions(),
         elevation: 0,
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.indigo[700],
         // centerTitle: true,
         title: Text(
           "Keep Notes",
           style: GoogleFonts.montserrat(color: Colors.black),
         ),
       ),
-
       floatingActionButton: Container(
           decoration: BoxDecoration(
               border: Border.all(width: 2, color: Colors.black),
-              //   boxShadow: [
-              //   BoxShadow(
-              //       color: Colors.orange.withOpacity(0.8),
-              //       blurRadius: 20,
-              //       spreadRadius: 0,
-              //       offset: Offset(0, 4))
-              // ],
               borderRadius: BorderRadius.circular(100)),
           child: Hero(
             tag: 'FAB',
@@ -81,27 +71,19 @@ class _MainPageState extends State<MainPage> {
                             borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(100),
                                 bottomRight: Radius.circular(100))),
-                        color: Colors.orange,
+                        color: Colors.indigo[700],
                         // elevation: 0,
                         onPressed: () => _newNoteTapped(context),
-                         child:Transform.rotate(
-                           angle: 90 * pi/180,
-                           child: Icon(LineAwesomeIcons.edit,
-                             size: 32,),
-                         ),
-//                        child: Icon(
-//                          LineAwesomeIcons.edit,
-//                          size: 32,
-//                        ),
+                        child: Transform.rotate(
+                          angle: 90 * pi / 180,
+                          child: Icon(
+                            LineAwesomeIcons.edit,
+                            size: 32,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-
-//                  Container(
-//                    color: Colors.black,
-//                    height: 60,
-//                    width: 2,
-//                  ),
                   SizedBox(
                     width: 80,
                     child: RotatedBox(
@@ -115,27 +97,20 @@ class _MainPageState extends State<MainPage> {
                         color: Colors.orange,
                         // elevation: 0,
                         onPressed: () => _newPhotoNoteTapped(context),
-                        child:Transform.rotate(
-                          angle: 270 * pi/180,
-                          child: Icon(LineAwesomeIcons.file_image_o,
-                            size: 32,),
+                        child: Transform.rotate(
+                          angle: 270 * pi / 180,
+                          child: Icon(
+                            LineAwesomeIcons.file_image_o,
+                            size: 32,
+                          ),
                         ),
-//                        child: Icon(LineAwesomeIcons.file_image_o, size: 32),
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-          )
-          // FloatingActionButton.extended(
-          //   heroTag: 'FAB',
-          //   elevation: 0,
-          //   onPressed: () => _newNoteTapped(context),
-          //   label: Text("CREATE"),
-          //   icon: Icon(Icons.add),
-          // ),
-          ),
+          )),
       body: Container(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -145,7 +120,7 @@ class _MainPageState extends State<MainPage> {
             Expanded(
               flex: 2,
               child: NavigationRail(
-                groupAlignment: 0.0,
+                  groupAlignment: 0.0,
                   unselectedIconTheme: IconThemeData(color: Colors.black87),
                   selectedIconTheme: IconThemeData(color: Colors.black),
                   labelType: NavigationRailLabelType.selected,
@@ -185,8 +160,10 @@ class _MainPageState extends State<MainPage> {
                                               await NotesDBHandler().deleteDB();
                                               await NotesDBHandler().initDB();
                                               CentralStation.updateNeeded =
-                                              true;
-                                              SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+                                                  true;
+                                              SystemChannels.platform
+                                                  .invokeMethod(
+                                                      'SystemNavigator.pop');
                                             },
                                             child: Text("Yes")),
                                         FlatButton(
@@ -271,36 +248,8 @@ class _MainPageState extends State<MainPage> {
               flex: 9,
               child: Stack(
                 children: <Widget>[
-                  // Align(
-                  //   alignment: Alignment.topRight,
-                  //   child: Container(
-                  //     color: Colors.amber,
-                  //     child: SizedBox(
-                  //       width: 20.w,
-                  //       height: 20.h,
-                  //       child: Text(''),
-                  //     ),
-                  //   ),
-                  // ),
-                  // Align(
-                  //   alignment: Alignment.topRight,
-                  //   child: Container(
-                  //     decoration: BoxDecoration(
-                  //       color: Colors.white,
-                  //       borderRadius: BorderRadius.circular(15),
-                  //     ),
-                  //     child: SizedBox(
-                  //       width: 20.w,
-                  //       height: 20.h,
-                  //     ),
-                  //   ),
-                  // ),
                   Container(
                       decoration: BoxDecoration(
-                        // borderRadius: BorderRadius.only(
-                        //   topRight: Radius.circular(15),
-                        // ),
-                        // border: Border.all(color: Colors.black, width: 2),
                         border: Border(
                           right: BorderSide(color: Colors.black, width: 2),
                           top: BorderSide(color: Colors.black, width: 2),
@@ -311,23 +260,6 @@ class _MainPageState extends State<MainPage> {
                       child: Center(
                         child: Text(''),
                       )),
-                  // Padding(
-                  //   padding: const EdgeInsets.fromLTRB(0, 2, 2, 0),
-                  //   child: Align(
-                  //     alignment: Alignment.bottomLeft,
-                  //     child: Container(
-                  //       decoration: BoxDecoration(
-                  //         border: Border(
-                  // left: BorderSide(color: Colors.white, width: 3),
-                  // bottom: BorderSide(color: Colors.white, width: 3),
-                  //         ),
-                  //       ),
-                  //       child: Center(
-                  //         child: Text(''),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                   Container(
                     padding: EdgeInsets.only(top: 8),
                     child: SafeArea(
@@ -341,12 +273,9 @@ class _MainPageState extends State<MainPage> {
                 ],
               ),
             ),
-
           ],
         ),
       ),
-
-      // bottomSheet: _bottomBar(),
     );
   }
 
@@ -358,7 +287,6 @@ class _MainPageState extends State<MainPage> {
       selectedIndex: _selectedIndex,
     ));
   }
-
 
   void _newNoteTapped(BuildContext ctx) {
     var emptyNote = new Note(
@@ -403,8 +331,7 @@ class _MainPageState extends State<MainPage> {
                     color: Colors.black87,
                   ),
             onPressed: () => _toggleViewType(),
-          )
-          ),
+          )),
     ];
   }
 }

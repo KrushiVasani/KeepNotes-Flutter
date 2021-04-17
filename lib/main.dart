@@ -13,13 +13,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-
-        iconTheme: IconThemeData(color: Colors.orange),
+        iconTheme: IconThemeData(color: Colors.indigo[700]),
         textTheme: GoogleFonts.montserratTextTheme(),
         primaryTextTheme: TextTheme(
           headline6: TextStyle(color: Colors.black),
         ),
-        primarySwatch: Colors.orange,
+        primarySwatch: Colors.indigo[700],
       ),
       home: ScrollConfiguration(
         behavior: MyBehavior(),

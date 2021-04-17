@@ -34,7 +34,6 @@ class _NotePageState extends State<NotePage> {
 
   var _editableNote;
 
-  // the timer variable responsible to call persistData function every 5 seconds and cancel the timer when the page pops.
   Timer _persistenceTimer;
 
   final GlobalKey<ScaffoldState> _globalKey = new GlobalKey<ScaffoldState>();
@@ -243,8 +242,7 @@ class _NotePageState extends State<NotePage> {
       var noteDB = NotesDBHandler();
 
       if (_editableNote.id == -1) {
-        Future<int> autoIncrementedId =
-            noteDB.insertNote(_editableNote, true);
+        Future<int> autoIncrementedId = noteDB.insertNote(_editableNote, true);
         autoIncrementedId.then((value) {
           _editableNote.id = value;
         });
@@ -355,7 +353,6 @@ class _NotePageState extends State<NotePage> {
     }
   }
 
-
   Future<bool> _readyToPop() async {
     _persistenceTimer.cancel();
 
@@ -453,7 +450,6 @@ class _NotePageState extends State<NotePage> {
   }
 
   void _unStarThisNote(BuildContext context) {
-
     setState(() {
       _editableNote.isStarred = 0;
     });
